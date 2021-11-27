@@ -15,14 +15,14 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
     const classes = useStyles();
     const theme = useTheme();
     return(
-        <li className={classes.todoListInput}>
+        <Row className={classes.todoListInput}>
             <Card className={classes.todoWrapper}>
                 <Card.Title className={classes.titleWrapper}>
                     <Row > 
                         <Col xs={8} md={8} sm={8}>
                             <div className={classes.title}>{Todo.title}</div>
                         </Col>
-                        <Col xs={3} md={3} sm={3}>
+                        <Col xs={2} md={2} sm={2}>
                             <Checkbox checked={Todo.state}/>
                         </Col>
                         <Col xs={1} md={1} sm={1}>
@@ -42,7 +42,7 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
                     
                 </Card.Body>
             </Card>
-        </li>
+        </Row>
     );
     
 }

@@ -4,12 +4,11 @@ export const useStyles = makeStyles((theme) => ({
 todoListInput:{
     display:'flex',
     justifyContent:'center',
-    alignItems:'center',
-    listStyle:'none',
+    alignItems:'center', 
     padding:0,
 },
 todoWrapper:{  
-    width:'80%',
+    width:'90%',
     marginTop:'20px', 
     padding:0,
     boxShadow:'1px 1px 6px #888888 ',
