@@ -15,7 +15,7 @@ interface todoListProp{
 export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{ 
     const classes = useStyles();
     const theme = useTheme();
-    return(
+    return( 
         <Row className={classes.todoListInput}>
             <Card className={classes.todoWrapper}>
                 <Card.Title className={classes.titleWrapper}>

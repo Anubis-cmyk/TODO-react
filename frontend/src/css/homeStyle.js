@@ -59,7 +59,7 @@ buttonRow:{
 
 },
 button:{
-        marginRight:20,
+        marginRight:10,
         width:'100px'
 },
 buttonRowList:{
