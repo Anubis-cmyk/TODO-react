@@ -6,6 +6,7 @@ import {Col,Row,Button,Card} from'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import {Checkbox} from '@material-ui/core' 
 import Delete from '@material-ui/icons/Delete'
+import Edit from '@material-ui/icons/Edit'
 
 interface todoListProp{
    Todo:todo;
@@ -23,10 +24,11 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
                             <div className={classes.title}>{Todo.title}</div>
                         </Col>
                         <Col xs={2} md={2} sm={2}>
-                            <Checkbox checked={Todo.state}/>
+                            Finish : <Checkbox checked={Todo.state}/>  
                         </Col>
-                        <Col xs={1} md={1} sm={1}>
+                        <Col xs={2} md={2} sm={2}>
                             <Button className={classes.deleteButton}><Delete/></Button>
+                            <Button className={classes.EditButton}><Edit/></Button>
                         </Col>
                     </Row>
                 </Card.Title>

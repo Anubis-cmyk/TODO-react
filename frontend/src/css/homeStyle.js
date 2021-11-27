@@ -65,8 +65,7 @@ button:{
 buttonRowList:{
     display:'flex',
     flexDirection:'row',  
-    width:'900px',
-    padding:3
+    width:'900px', 
 
 },
 buttonActive:{ 

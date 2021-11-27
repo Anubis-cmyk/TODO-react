@@ -31,8 +31,19 @@ title:{
 deleteButton:{
     margin:4,
     padding:1, 
+    paddingLeft:3,
+    paddingRight:3,
     backgroundColor:'#ec7599',
     borderColor:'#ec7599',
+    cursor:'pointer', 
+},
+EditButton:{
+    margin:4,
+    padding:1, 
+    paddingLeft:3,
+    paddingRight:3,
+    backgroundColor:'#355b45',
+    borderColor:'#355b45',
     cursor:'pointer', 
 },
 endDate:{
