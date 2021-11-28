@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
-const Todo = mongoose.Schema(
+const TodoShema = mongoose.Schema(
   {
     title: {
       type: String,
     },
 
     status: {
-      type: String,
+      type:Boolean ,
     },
 
     active: {
-      type: Boolean,
+      type:String ,
     },
 
     endDate: {
@@ -21,6 +21,6 @@ const Todo = mongoose.Schema(
   { timesamps: true }
 );
 
-const Reservation = mongoose.model("todo", Todo);
+const Todo = mongoose.model("todo", TodoShema);
 
 module.exports = { Todo };

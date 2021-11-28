@@ -6,15 +6,26 @@ const { Todo } = require("../models/Todo");
  * @param {*} req 
  * @param {*} res 
  */
-const addTodo = async (req, res) => {
-  const todo = new Todo(req.body);
-
-  await todo.save((err) => {
-    if (err) return res.status(400).json({ success: false, err });
-    return res.status(200).json({ success: true });
-  });
-};
-
+ const addTodo = async (req, res) => {
+    try { 
+      
+      console.log(req.body);
+      const { active, status, endDate, title} = req.body;
+      let todoItem = new Todo({ 
+        active,
+        status,
+        endDate, 
+        title
+      });
+      await todoItem.save();
+      res.send("Todo details uploaded successfully.");
+    } catch (error) {
+      res
+        .status(400)
+        .send("Error, Try again later. :" + error);
+    }
+  }
+   
 
 /**
  * retrieve todo details
@@ -22,15 +33,19 @@ const addTodo = async (req, res) => {
  * @param {*} res 
  */
 const getTodo = async (req, res) => {
-  await Todo.find().exec(function (err, Todos) {
-    if (err) {
-      console.log("Error retrieving");
-    } else {
-      res.json(Todos);
-    }
-  });
+   try {  
+    const todos = await Todo.find(); 
+    if (todos){
+      return res.status(200).json({ message: "Data retrieving",data:todos });
+    } 
+    else {
+      console.log(todos);
+      return res.status(400).json({ message: "error while retrieving data" });
+    }  
+  } catch (e) {
+    res.status(500).json({ message: "Server error : " + e });
+  }
 };
-
 
 /**
  * update todo details
@@ -69,11 +84,11 @@ const updateTodo = async (req, res) => {
 const deleteTodo = async (req, res) => {
   const TodoId = req.params.id;
 
-  const Todo = await Todo.findById(TodoId);
-  if (!Todo) {
+  const todo = await Todo.findById(TodoId);
+  if (!todo) {
     console.log("Error deleting");
   }
-  await Todo.remove((err) => {
+  await todo.remove((err) => {
     if (err) return res.status(400).json({ success: false, err });
     return res.status(200).json({ success: true });
   });
