@@ -9,6 +9,7 @@ import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
 import axios from "axios"; 
 import { API_URL } from "../utils/constants";
+import {Popup} from './updatePopup'
 
 interface todoListProp{
    Todo:todo;
@@ -18,6 +19,7 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
     const classes = useStyles();
     const theme = useTheme();
     const [message,setMessage] = useState('');
+    const [openPopup,setOpenPopup] = useState(false);
 
     /**
          *  update todo
@@ -69,7 +71,7 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
                         </Col>
                         <Col xs={2} md={2} sm={2}>
                             <Button className={classes.deleteButton} onClick={() => handleRowDelete()}><Delete/></Button>
-                            <Button className={classes.EditButton}><Edit/></Button>
+                            <Button className={classes.EditButton} onClick={() => setOpenPopup(true)}><Edit/></Button>
                         </Col>
                     </Row>
                 </Card.Title>
@@ -85,6 +87,18 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
                     
                 </Card.Body>
             </Card>
+            
+        <Popup
+          openPopUp ={openPopup}
+          setOpenPopup={setOpenPopup}
+          _id ={Todo._id}
+          title = {Todo.title}
+          active={Todo.active}
+          status={Todo.state}
+          endDate={Todo.endDate}
+          >
+
+          </Popup>
         </Row>
     );
     

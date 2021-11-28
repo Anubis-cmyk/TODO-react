@@ -15,6 +15,9 @@ import DateFnsUtils from '@date-io/date-fns';
 import ListSharp from '@material-ui/icons/ListSharp'; 
 import { API_URL } from "../utils/constants";
 import axios from "axios"; 
+import { Type } from 'typescript';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const topos:Array<todo> =[
   {_id:'0',title:"walk",active:'asdasd',state:true,endDate:'2020/2/2'},
@@ -34,13 +37,11 @@ enum updateData {
 export const Home: FC = ()=>{ 
     const classes = useStyles();
     const theme = useTheme();
-    const [todo,setTodo] = useState<todo | null>();
-    const [todoList,setTodoList] = useState([]);
-    const [updateData,setupdateData] = useState([]); 
-    const [message,setMessage] = useState('');
-    const [title,setTitle] =useState('');
-    const [status,setStatus] =useState<Boolean |null>(false);
-    const [active,setActive] =useState<String |null>(''); 
+    const [todo,setTodo] = useState();
+    const [todoList,setTodoList] = useState([]); 
+    const [message,setMessage] = useState(''); 
+    const [order,setOrder] = useState(1); 
+    const [status,setStatus] =useState<Boolean |null>(false);  
     const [date, changeDate] = useState<Date | null>(new Date());
     const [state, setState] = useState({
         title: "",
@@ -54,17 +55,30 @@ export const Home: FC = ()=>{
      * get todo list
      */
     useEffect(() => {
-        axios
-        .get(`${API_URL}/todo/get`, {
-            headers: { 
-            },
-        })
-        .then((res) => {
-            setTodoList(res.data.data);
-            console.log(res.data.data)
-        });
+        order === 1?getACS():getDACS() 
     }, [todoList]);
-    
+
+     const getACS = () => { 
+            axios.get(`${API_URL}/todo/getACS`, {
+                headers: { 
+                },
+            })
+            .then((res) => {
+                setTodoList(res.data.data);
+                console.log(res.data.data)
+            }) 
+     }
+     const getDACS = () => { 
+            axios.get(`${API_URL}/todo/getDACS`, {
+                headers: { 
+                },
+            })
+            .then((res) => {
+                setTodoList(res.data.data);
+                console.log(res.data.data)
+            })
+     }
+     
     /**
      * add new todo
      */
@@ -98,10 +112,7 @@ export const Home: FC = ()=>{
         [event.target.name]: event.target.value,
         });
     };
-
-    const listItems = todoList.map((item) =>
-     <TodoListInput  Todo={item} />
-    );
+  
 
     return( 
         <div className={classes.root}>
@@ -161,18 +172,34 @@ export const Home: FC = ()=>{
                     <Col xs={8} md={8} sm={8}>
                   
                     
-                        <Card >    
-                            <Row className={classes.buttonRowList}>
-                                <Button className={classes.buttonActive}>All</Button>
-                                <Button className={classes.buttonFinish}>Active</Button>
-                                <Button className={classes.buttonFinish}>Finish</Button>
-                            </Row>
+                        <Card >     
                             <Card.Header className={classes.cardHeader}>
-                                Todo List
+                                <Row>
+                                    <Col  xs={10} md={10} sm={10}> 
+                                       Todo List
+                                    </Col>
+                                    <Col  xs={2} md={2} sm={2}>  
+                                             {
+                                                 order === 0?(
+                                                     <>
+                                                        <ArrowUpwardIcon onClick={()=> setOrder(1)}/>
+                                                     </>
+                                                 ):(
+                                                     <>
+                                                        <ArrowDownwardIcon onClick={()=> setOrder(0)}/>
+                                                     </>
+                                                 )
+                                             }
+ 
+                                    </Col>
+                                </Row>
                             </Card.Header>
                             <Card.Body className={classes.cardBody}>
                                  
-                                {listItems}
+                                {todoList.map((item) =>
+                                    <TodoListInput  Todo={item} /> 
+                                )
+                               }
                             </Card.Body>                   
                         </Card>
                     </Col>

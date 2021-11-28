@@ -7,24 +7,7 @@ root:{
     height:'100%',
     padding:10
 },
-heading:{
-    fontSize:'40px',
-    textAlign:'center',
-    fontWeight:'bold',
-    width:'100%',
-    padding:10,
-    marginBottom:20
-
-},
-container:{  
-    padding: '25px', 
-    height:'100%',
-    margin:'20px 10% 10px 10%'
-},
-cardBody:{
-    padding:10,
-    paddingBottom:20,
-},
+ 
 formInput:{
     width:'400px',
     marginBottom:20,
@@ -36,6 +19,10 @@ formWrapper:{
     alignItems:'center',
     padding:20,
     paddingBottom:20,
+},
+status:{
+    display:'flex', 
+    alignItems:'center'
 },
 cardHeader:{
     textAlign:'center',
@@ -50,6 +37,7 @@ todoIcon:{
 },
 buttonRow:{
     display:'flex',
+    marginTop:'20px',
     flexDirection:'row', 
     alignItems:'flex-end',
     width:'400px',
