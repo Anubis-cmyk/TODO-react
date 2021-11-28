@@ -21,22 +21,7 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
     const [message,setMessage] = useState('');
     const [openPopup,setOpenPopup] = useState(false);
 
-    /**
-         *  update todo
-         * @param newData
-         * @param oldData  
-         */
-        const handleRowUpdate = (newData:todo, oldData:todo) => {
-            axios
-                .put(`${API_URL}/todo/update/` + newData._id, newData, {
-                headers: {
-                    
-                },
-                })
-                .then((res) => {
-                  setMessage('update success')
-                }); 
-            }
+   
          
         /**
          * delete todo
@@ -45,8 +30,7 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
         const handleRowDelete = () => {
             axios
             .delete(`${API_URL}/todo/delete/` + Todo._id, {
-                headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                headers: { 
                 },
             })
             .then((res) => {
@@ -65,9 +49,9 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
                     <Row > 
                         <Col xs={8} md={8} sm={8}>
                             <div className={classes.title}>{Todo.title}</div>
-                        </Col>
+                        </Col> 
                         <Col xs={2} md={2} sm={2}>
-                            Finish : <Checkbox checked={Todo.state}/>  
+                            Finish : <Checkbox checked={Todo.status}/>  
                         </Col>
                         <Col xs={2} md={2} sm={2}>
                             <Button className={classes.deleteButton} onClick={() => handleRowDelete()}><Delete/></Button>
@@ -94,7 +78,7 @@ export const TodoListInput: FunctionComponent<todoListProp> = ({Todo})=>{
           _id ={Todo._id}
           title = {Todo.title}
           active={Todo.active}
-          status={Todo.state}
+          status={Todo.status}
           endDate={Todo.endDate}
           >
 

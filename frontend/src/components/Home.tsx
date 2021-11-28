@@ -18,21 +18,14 @@ import axios from "axios";
 import { Type } from 'typescript';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-
-const topos:Array<todo> =[
-  {_id:'0',title:"walk",active:'asdasd',state:true,endDate:'2020/2/2'},
-  {_id:'1',title:"run",active:'asdasd',state:false,endDate:'2020/2/2'},
-  {_id:'2',title:"sleep",active:'asdasd',state:true,endDate:'2020/2/2'},
-]
-
-enum updateData {
-  _id ,
-  title ,
-  status ,
-  active,
-  endDate,
-}
  
+ 
+const inisialState={
+        title: "",
+        status: "",
+        active: "",
+        date: ""
+  }
 
 export const Home: FC = ()=>{ 
     const classes = useStyles();
@@ -51,7 +44,7 @@ export const Home: FC = ()=>{
   });
 
  
-  /**
+    /**
      * get todo list
      */
     useEffect(() => {
@@ -64,8 +57,7 @@ export const Home: FC = ()=>{
                 },
             })
             .then((res) => {
-                setTodoList(res.data.data);
-                console.log(res.data.data)
+                setTodoList(res.data.data); 
             }) 
      }
      const getDACS = () => { 
@@ -74,8 +66,7 @@ export const Home: FC = ()=>{
                 },
             })
             .then((res) => {
-                setTodoList(res.data.data);
-                console.log(res.data.data)
+                setTodoList(res.data.data); 
             })
      }
      
@@ -155,6 +146,7 @@ export const Home: FC = ()=>{
                                             className={classes.formInput}
                                             label="End date"
                                             value={date}
+                                            views={["year", "month", "date"]}
                                             onChange={value =>changeDate(value)}
                                             />
                                             
@@ -162,7 +154,7 @@ export const Home: FC = ()=>{
                                     </Row> 
                                     <Row className={classes.buttonRow}>
                                         <Button className={classes.button} onClick={() => addTodo()}>add</Button>
-                                        <Button className={classes.button} >cancel</Button>
+                                        <Button   className={classes.button} onClick={() => setState(inisialState)}>cancel</Button>
                                     </Row>
                                 </form>                                 
                             </Card.Body>                   

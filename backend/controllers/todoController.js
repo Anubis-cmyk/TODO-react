@@ -77,13 +77,14 @@ const updateTodo = async (req, res) => {
   try {
     let todo = await Todo.findById(req.params.id); 
     const data = {
-      title: req.body.title || todo.title,
-      status: req.body.status || todo.status,
-      active: req.body.active || todo.active,
-      endDate: req.body.endDate || todo.endDate, 
+      title: req.body.title ,
+      status: req.body.status ,
+      active: req.body.active ,
+      endDate: req.body.date , 
     };
     todo = await Todo.findByIdAndUpdate(req.params.id, data, { new: true });
     res.json(todo);
+    console.log(todo)
   } catch (e) {
     res.status(400).json({ msg: e.message, success: false });
   }

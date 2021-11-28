@@ -6,6 +6,7 @@ import { Button, Card, Row } from 'react-bootstrap';
 import {useStyles}  from '../css/updateStyle';
 import axios from "axios"; 
 import { API_URL } from "../utils/constants";
+import { stat } from 'fs';
 
 interface Props {
   _id : String ;
@@ -21,9 +22,9 @@ interface Props {
 export const Popup: FunctionComponent<Props> =(props)=>{ 
     
     const classes = useStyles();  
-    const [Evdate, changeEvDate] = useState<Date | null>(); 
+    const [Evdate, changeEvDate] = useState <any>(props.endDate); 
     const [message,setMessage] = useState('');
-    const [todoState,settodoState] = useState(props.status);
+    const [status,setStatus] = useState<boolean>(props.status); 
     const [state, setState] = useState({
         id:props._id,
         title: props.title,
@@ -32,22 +33,27 @@ export const Popup: FunctionComponent<Props> =(props)=>{
         date: props.endDate
   });
 
-   /**
-         *  update todo
-         * @param newData
-         * @param oldData  
+         /**
+         *  update todo 
          */
         const handleRowUpdate = () => { 
+            const data ={
+                id:state.id,
+                title:state.title,
+                status:status?true:false,
+                active:state.active,
+                date:Evdate
+            }
             axios
-                .put(`${API_URL}/todo/update/` + state.id, state, {
+                .put(`${API_URL}/todo/update/` + data.id, data, {
                 headers: {
-                    
                 },
                 })
                 .then((res) => {
-                  setMessage('update success')
+                  setMessage('update success') 
                   props.setOpenPopup(false)
                 }); 
+                
             }
 
      const handleInputChange = (event:any) => {
@@ -62,7 +68,7 @@ export const Popup: FunctionComponent<Props> =(props)=>{
     return(
         <Dialog open={props.openPopUp}>
             <DialogTitle>
-                <div>Edit Todo details</div>
+                <div>Update Todo details</div>
             </DialogTitle>
             <DialogContent>
                         
@@ -91,14 +97,19 @@ export const Popup: FunctionComponent<Props> =(props)=>{
                                         <DatePicker
                                             className={classes.formInput}
                                             label="End date"
-                                            value={state.date} 
+                                            value={Evdate} 
                                             onChange={(selectDate) => changeEvDate(selectDate)}                                        
                                         />
                                             
                                         </MuiPickersUtilsProvider> 
                                     </Row>   
                                     <Row className={classes.status}>
-                                       Finish : <Checkbox checked={state.status}/>
+                                       Finish : <Checkbox checked={status}
+                                            onChange={e => { 
+                                                 setStatus(e.target.checked)
+                                                console.log(e.target.checked + " " + status); 
+                                            }}
+                                       />
                                     </Row> 
                                     <Row className={classes.buttonRow}>
                                         <Button className={classes.button} onClick={() =>handleRowUpdate()}>Update</Button>
