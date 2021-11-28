@@ -56,7 +56,7 @@ buttonRow:{
 
 },
 button:{
-        marginRight:10,
+        marginRight:20,
         width:'100px'
 },
 buttonRowList:{
